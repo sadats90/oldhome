@@ -1,0 +1,73 @@
+Appointments
+
+SELECT users.role_id,users.first_name,users.last_name,patients.id,roles.role_name
+FROM ((users
+INNER JOIN patients ON users.id = patients.id)
+INNER JOIN roles ON users.role_id = roles.id)
+WHERE roles.id = 5
+
+
+
+
+
+
+
+INNER JOIN rosters ON rosters.doctor_id =employees.id
+INNER JOIN rosters ON rosters.caregiver_1_id =employees.id
+INNER JOIN rosters ON rosters.caregiver_2_id =employees.id
+INNER JOIN rosters ON rosters.caregiver_3_id =employees.id
+INNER JOIN rosters ON rosters.caregiver_4_id =employees.id
+
+
+
+
+doctors home
+select doc.first_name, doc.last_name, pat.first_name as 'p_f_name',pat.last_name as 'p_l_name', 
+                        prescriptions.comment,prescriptions.morning_medicine,prescriptions.afternoon_medicine,prescriptions.night_medicine,prescriptions.date
+                        from prescriptions
+                        JOIN patients on prescriptions.patient_id = patients.id
+                        join  employees on prescriptions.doctor_id = employees.id
+                        JOIN users doc on employees.user_id = doc.id
+                        join users pat on patients.user_id  = pat.id
+                        WHERE prescriptions.date >= '11-19-2020' AND
+                        prescriptions.doctor_id = 3
+
+
+
+caregiver
+select care.first_name, care.last_name, pat.first_name as 'p_f_name',pat.last_name as 'p_l_name',patient_activities.has_given_morning_medicine,patient_activities.has_given_afternoon_medicine,patient_activities.has_given_night_medicine
+                        
+                        from `patient_activities`
+                        JOIN patients on patient_activities.patient_id = patients.id
+                        join  employees on patient_activities.caregiver_id = employees.id
+                        JOIN users care on employees.user_id = care.id
+                        join users pat on patients.user_id  = pat.id
+
+
+
+
+
+
+rosters
+select doc.first_name as 'doc_f_name', doc.last_name as 'doc_l_name',sup.first_name as 'sup_l_name',sup.last_name as 'sup_l_name', 
+care1.first_name as 'care1_f_name',care1.last_name as 'care1_l_name',
+care2.first_name as 'care2_f_name',care2.last_name as 'care2_l_name',
+care3.first_name as 'care3_f_name',care3.last_name as 'care3_l_name',
+care4.first_name as 'care4_f_name',care4.last_name as 'care4_l_name'
+                        from rosters
+                        join  employees supervisor on rosters.supervisor_id = supervisor.id
+                        join  employees doctor on rosters.doctor_id = doctor.id
+                        join  employees caregiver1 on  rosters.caregiver_1_id = caregiver1.id
+                        join  employees  caregiver2 on rosters.caregiver_2_id = caregiver2.id
+                        join  employees caregiver3 on  rosters.caregiver_3_id = caregiver3.id
+                        join  employees  caregiver4 on rosters.caregiver_4_id = caregiver4.id
+                        
+                         
+                         
+                        JOIN users doc on doctor.user_id = doc.id
+                        JOIN users sup on supervisor.user_id = sup.id
+                        JOIN users care1 on caregiver1.user_id = care1.id
+                        JOIN users care2 on caregiver2.user_id = care2.id
+                        JOIN users care3 on caregiver3.user_id = care3.id
+                        JOIN users care4 on caregiver4.user_id = care4.id
+                                                
