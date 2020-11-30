@@ -4,7 +4,7 @@ $conn  = mysqli_connect("localhost","root","","oldhome");
 
 if($conn)
 {
-    echo "ss";
+    echo "";
 }
 
 else

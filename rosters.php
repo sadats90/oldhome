@@ -14,7 +14,9 @@
                 care2.first_name as 'care2_f_name',care2.last_name as 'care2_l_name',
                 care3.first_name as 'care3_f_name',care3.last_name as 'care3_l_name',
                 care4.first_name as 'care4_f_name',care4.last_name as 'care4_l_name'
-                                        from rosters
+                                       
+                
+                from rosters
                                         join  employees supervisor on rosters.supervisor_id = supervisor.id
                                         join  employees doctor on rosters.doctor_id = doctor.id
                                         join  employees caregiver1 on  rosters.caregiver_1_id = caregiver1.id

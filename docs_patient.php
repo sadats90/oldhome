@@ -36,6 +36,9 @@
                         <div class="container-fluid">
             
                  <?php     
+
+                        $id = $_POST['details'];
+                      
                  
                         $sql_upcoming = "select doc.first_name, doc.last_name, pat.first_name as 'p_f_name',pat.last_name as 'p_l_name', 
                         prescriptions.comment,prescriptions.morning_medicine,prescriptions.afternoon_medicine,prescriptions.night_medicine,prescriptions.date
@@ -44,15 +47,28 @@
                         join  employees on prescriptions.doctor_id = employees.id
                         JOIN users doc on employees.user_id = doc.id
                         join users pat on patients.user_id  = pat.id
-                        WHERE prescriptions.doctor_id = 3 AND prescriptions.patient_id = 2";
+                        WHERE prescriptions.doctor_id = 3 AND prescriptions.patient_id = $id";
                         $result = mysqli_query($conn, $sql_upcoming);
+
+
+                        $make = mysqli_query($conn,$sql_upcoming);
+
+
+
+                        $arr = mysqli_fetch_array($make);
+
+                        $f_name = $arr['p_f_name'];
+                        $l_name = $arr['p_l_name'];
+                        
+
+                     
                         
                         
 
                         if (mysqli_num_rows($result) > 0) {
                         // output data of each row
                         ?>  
-                        <h3>Patient Name</h3>
+                        <h3>Patients Name : <?php echo $f_name ." " .$l_name  ?> </h3>
                         <table class="table table-hover table-bordered table-striped table-secondary">
                         <thead>
                         <tr>

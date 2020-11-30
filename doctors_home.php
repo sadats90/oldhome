@@ -39,7 +39,7 @@
                      
              
 
-                        $sql_past = "select doc.first_name, doc.last_name, pat.first_name as 'p_f_name',pat.last_name as 'p_l_name', 
+                        $sql_past = "select doc.first_name, doc.last_name, pat.first_name as 'p_f_name',pat.last_name as 'p_l_name',pat.id, 
                         prescriptions.comment,prescriptions.morning_medicine,prescriptions.afternoon_medicine,prescriptions.night_medicine,prescriptions.date
                         from prescriptions
                         JOIN patients on prescriptions.patient_id = patients.id
@@ -63,6 +63,7 @@
                         <th>Morning Med</th>
                         <th>Afternoon Med</th>
                         <th>Night Med</th>
+                        <th>Details</th>
                         
                         
                         </tr>
@@ -70,14 +71,20 @@
                         <?php   
                             while($row = mysqli_fetch_assoc($result1)) {
                                 
-                               
+                            $id1 = $row['id'];  
+                            $name = $row['p_f_name']; 
                             echo "<tr>";
                             echo "<td>" . $row['p_f_name']." ".$row['p_l_name'] . "</td>";
                             echo "<td>" . $row['date']. "</td>"; 
                             echo "<td>" . $row['comment']. "</td>"; 
                             echo "<td>" . $row['morning_medicine']. "</td>"; 
                             echo "<td>" . $row['afternoon_medicine']. "</td>";
-                            echo "<td>" . $row['afternoon_medicine']. "</td>";  
+                            echo "<td>" . $row['afternoon_medicine']. "</td>"; 
+                            echo "<td>". 
+                            "<form method='post' action='docs_patient.php'> 
+                            <button type='submit' value='$id1' name='details'>Details</button>  
+                            </form>" 
+                            ."</td>"; 
 
                            
                             echo "<tr>";
@@ -133,6 +140,12 @@
                             echo "<tr>";
                             echo "<td>" . $row['p_f_name']." ".$row['p_l_name'] . "</td>";
                             echo "<td>" . $row['date']. "</td>"; 
+                            echo "<td>". 
+                            "<form method='post' action='docs_patient.php'> 
+                            <button type='submit' value='$id1' name='details'>Details</button>  
+                            </form>" 
+                            ."</td>"; 
+                            
                             
 
                            

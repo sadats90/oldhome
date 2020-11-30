@@ -1,3 +1,10 @@
+<?php
+ include_once "connection.php";
+ include_once "main.php";
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,15 +19,15 @@
     
     
     <div class="col-md-4">
-        <form class="text-center border border-light p-5" action="#!">
+        <form class="text-center border border-light p-5" action="login.php" method="POST">
             <p class="h4 mb-4">Sign in</p>
-            <!-- Email -->
-            <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
-            <!-- Password -->
-            <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
-            <!-- Sign in button -->
-            <button class="btn btn-info btn-block " type="submit">Sign in</button>
-            <!-- Register -->
+          
+            <input type="email" id="defaultLoginFormEmail" name="email" class="form-control mb-4" placeholder="E-mail">
+            
+            <input type="password" id="defaultLoginFormPassword" name="password" class="form-control mb-4" placeholder="Password">
+           
+            <button class="btn btn-info btn-block " type="submit" name ="login">Sign in</button>
+            
             <p>Not a member?
                 <a href="register.php">Register</a>
             </p> 
@@ -31,6 +38,52 @@
 
 
 <div class="col-md-4"></div>
+
+
+<?php
+	
+	if(isset($_POST['login'])){
+		
+		
+	    $c_email=$_POST['email'];
+		$c_pass=$_POST['password'];
+		
+		$sel_c="Select * FROM users WHERE password='$c_pass' AND email='$c_email'";
+		
+		$run_c=mysqli_query($conn, $sel_c);
+		
+        $check_customer=mysqli_num_rows($run_c);
+        
+        if($check_customer==0){
+			
+			echo "<script>alert('Password or Email is incorrect, plz try again!')</script>";
+			exit();
+        }
+        
+        else{
+            echo "<script>alert('Logged in successfully!')</script>";
+        }
+		
+		
+		}
+		
+		
+		
+		
+		// else
+		// {
+			
+		
+		// echo "<script>alert('You logged in successfully.')</script>";
+		
+		// }
+		
+	
+	
+	
+	
+	?>
+		
 
 
 

@@ -35,9 +35,9 @@ $query_patient = mysqli_query($conn,$sql_patient);
 
 <body>
 
-<form class="text-center border border-light p-5" action="doctors_app.php" method="post">>
+<form class="text-center border border-light p-5" action="doctors_app.php" method="post">
 
-    <p class="h4 mb-4">Dcoctors Appoinment</p>
+    <p class="h4 mb-4">Doctors Appoinment</p>
 
     <div class="form-row mb-4">
 
@@ -91,7 +91,7 @@ if(isset($_POST['insert_app']))
 }
 
 else {
-    echo "pasa";
+    echo "";
 }
 
 ?>

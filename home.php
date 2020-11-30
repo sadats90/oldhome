@@ -1,3 +1,9 @@
+<?php
+ include_once "connection.php";
+ include_once "main.php";
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
