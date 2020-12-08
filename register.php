@@ -1,6 +1,9 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include_once 'connection.php';
-$result = mysqli_query($conn,"SELECT * FROM roles");
+$result = mysqli_query($conn,"SELECT DISTINCT role_id,role_name from roles
+join users on roles.id = users.role_id");
 
 	
 ?>
@@ -18,21 +21,21 @@ $result = mysqli_query($conn,"SELECT * FROM roles");
 
 <body>
 <!-- Default form register -->
-<form class="text-center border border-light p-5" action="#!">
+<form class="text-center border border-light p-5" action="register.php" method="post">
 
-    <p class="h4 mb-4">Sign up</p>
+    <p class="h4 mb-4">Sign ssssup</p>
 
     <div class="form-row mb-4">
         <div class="col">
 
-            <select class="form-control" id="sel1">
+            <select class="form-control" name="role_id">
             <?php
-                
+            
                 while($DB_ROW = mysqli_fetch_array($result)) 
                 {
             ?>
-            <option></option> 
-            <option><?php echo $DB_ROW["name"]; ?></option>
+           
+            <option value=<?php echo $DB_ROW["role_id"];?>><?php echo $DB_ROW["role_name"]; ?></option>
             <?php
                 
                 }
@@ -44,26 +47,28 @@ $result = mysqli_query($conn,"SELECT * FROM roles");
 
         <div class="col">
             <!-- First name -->
-            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name">
+            <input type="text"  name ="first_name" class="form-control" placeholder="First name">
         </div>
         <div class="col">
             <!-- Last name -->
-            <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name">
+            <input type="text" name="last_name"  class="form-control" placeholder="Last name">
         </div>
     </div>
 
+    <!-- Phone number -->
+    <input type="text" name="phone" class="form-control" placeholder="Phone number" >
+    <br>
+
     <!-- E-mail -->
-    <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail">
+    <input type="email" name="email"  class="form-control mb-4" placeholder="E-mail">
 
     <!-- Password -->
-    <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password">
+    <input type="password" name="password"  class="form-control" placeholder="Password">
     <br>
 
-    <!-- Phone number -->
-    <input type="text" id="defaultRegisterPhonePassword" class="form-control" placeholder="Phone number" >
-    <br>
+    
 
-    <input placeholder="Date of Birth" class="form-control" type="text" onfocus="(this.type='date')" id="date">
+    <input placeholder="Date of Birth" class="form-control" name ="date_of_birth"  type="text" onfocus="(this.type='date')" id="date">
 
 
     
@@ -72,12 +77,50 @@ $result = mysqli_query($conn,"SELECT * FROM roles");
 
 
     <!-- Sign up button -->
-    <button class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+    <button class="btn btn-info my-4 btn-block" name="submit1" type="submit">Sign in</button>
 
 
 
 </form>
 <!-- Default form register -->
+
+
+
+<?php
+
+
+  if (isset($_POST['submit1']))
+  {
+     $role = $_POST['role_id'];
+    $f_name = $_POST['first_name'];
+    $l_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $pass = $_POST['password'];
+    $dob = $_POST['date_of_birth'];
+    $app = "0";
+
+    $insert_role = "INSERT INTO users(role_id,first_name,last_name,phone,email,date_of_birth,`password`,approved) 
+                              VALUES ('$role','$f_name','$l_name','$phone','$email','$dob','$pass','$app')";
+   
+    $insert_role_q = mysqli_query($conn,$insert_role);
+    
+    
+    if(!$insert_role_q)
+    {
+        echo "ok";
+    }
+
+  }
+
+
+
+
+
+
+
+
+?>
 
   
 </body>
